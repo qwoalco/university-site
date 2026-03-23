@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Университет</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Дополнительные стили для навигации по разделам */
+        .programs-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .programs-header h1 {
+            margin-bottom: 16px;
+        }
+        
+        .programs-header p {
+            color: #5e5e71;
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .section-nav {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 90px;
+            z-index: 90;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px 0;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #f0f0f5;
+        }
+        
+        .section-nav-btn {
+            padding: 12px 28px;
+            border-radius: 40px;
+            border: 2px solid #e0e0e7;
+            background: white;
+            color: #5e5e71;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+        }
+        
+        .section-nav-btn:hover {
+            border-color: #4a6cf7;
+            color: #4a6cf7;
+            transform: translateY(-2px);
+        }
+        
+        .section-nav-btn.active {
+            background: #4a6cf7;
+            color: white;
+            border-color: #4a6cf7;
+        }
+        
+        .programs-section {
+            scroll-margin-top: 140px;
+            margin-bottom: 60px;
+        }
+        
+        .programs-section h2 {
+            position: relative;
+            padding-bottom: 16px;
+            margin-bottom: 32px;
+            color: #1e1e2f;
+            font-size: 2rem;
+        }
+        
+        .programs-section h2:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background: #4a6cf7;
+            border-radius: 2px;
+        }
+        
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+        
+        .program-card {
+            background: white;
+            border-radius: 20px;
+            padding: 32px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 2px solid #f0f0f5;
+            transition: all 0.3s;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .program-card:hover {
+            transform: translateY(-8px);
+            border-color: #4a6cf7;
+            box-shadow: 0 20px 40px rgba(74,108,247,0.1);
+        }
+        
+        .program-card.hidden {
+            display: none;
+        }
+        
+        .program-level {
+            display: inline-block;
+            padding: 6px 16px;
+            background: #e8ebfe;
+            color: #4a6cf7;
+            border-radius: 40px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        
+        .program-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 16px;
+            color: #1e1e2f;
+        }
+        
+        .program-features {
+            list-style: none;
+            margin: 20px 0;
+            padding: 0;
+        }
+        
+        .program-features li {
+            margin: 12px 0;
+            color: #5e5e71;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .program-features i {
+            color: #4a6cf7;
+            width: 20px;
+            font-size: 1.1rem;
+        }
+        
+        .program-card p {
+            color: #5e5e71;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .program-link {
+            color: #4a6cf7;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: gap 0.3s;
+            margin-top: 12px;
+        }
+        
+        .program-link:hover {
+            gap: 12px;
+        }
+        
+        .stats-banner {
+            background: linear-gradient(135deg, #f9faff 0%, #ffffff 100%);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 60px 0;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            text-align: center;
+            border: 2px solid #f0f0f5;
+        }
+        
+        .stat-item h3 {
+            font-size: 2.2rem;
+            color: #4a6cf7;
+            margin-bottom: 8px;
+        }
+        
+        .stat-item p {
+            color: #5e5e71;
+            margin: 0;
+            font-size: 1rem;
+        }
+        
+        @media (max-width: 1024px) {
+            .programs-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-banner {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .section-nav {
+                top: 70px;
+                gap: 10px;
+            }
+            
+            .section-nav-btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+            
+            .programs-section h2 {
+                font-size: 1.8rem;
+            }
+            
+            .program-card {
+                padding: 24px;
+            }
+            
+            .stats-banner {
+                grid-template-columns: 1fr;
+                padding: 30px;
+            }
+        }
+        
+        /* Анимация появления */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .program-card {
+            animation: fadeInUp 0.5s ease-out;
+        }
+        
+        /* Кнопка "Показать все" */
+        .show-all-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .show-all-btn {
+            background: none;
+            border: 2px solid #4a6cf7;
+            color: #4a6cf7;
+            padding: 12px 32px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .show-all-btn:hover {
+            background: #4a6cf7;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- Навигация -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">Университет</a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="about.html">О нас</a></li>
+                <li><a href="programs.html" class="active">Программы</a></li>
+                <li><a href="admission.html">Поступление</a></li>
+                <li><a href="contacts.html">Контакты</a></li>
+            </ul>
+            <a href="apply.html" class="btn btn-primary">Подать заявку</a>
+        </div>
+    </nav>
+
+    <!-- Заголовок страницы -->
+    <div class="page-header">
+        <div class="container">
+            <h1>Программы обучения</h1>
+            <p>Выберите свою траекторию из 120+ образовательных программ по 12 направлениям</p>
+        </div>
+    </div>
+
+    <!-- Навигация по разделам -->
+    <div class="section-nav">
+        <button class="section-nav-btn active" data-section="all">Все программы</button>
+        <button class="section-nav-btn" data-section="bachelor">Бакалавриат</button>
+        <button class="section-nav-btn" data-section="master">Магистратура</button>
+        <button class="section-nav-btn" data-section="phd">Аспирантура</button>
+        <button class="section-nav-btn" data-section="additional">Доп. образование</button>
+    </div>
+
+    <!-- Основной контент -->
+    <div class="container">
+        <!-- Бакалавриат -->
+        <section id="bachelor" class="programs-section" data-category="bachelor">
+            <h2>Бакалавриат</h2>
+            <div class="programs-grid">
+                <div class="program-card" data-category="bachelor">
+                    <span class="program-level">Бакалавриат</span>
+                    <h3>Прикладная математика и информатика</h3>
+                    <ul class="program-features">
+                        <li><i class="fas fa-clock"></i> 4 года</li>
+                        <li><i class="fas fa-language"></i> Русский / Английский</li>
+                        <li><i class="fas fa-users"></i> 30 бюджетных мест</li>
+                        <li><i class="fas fa-ruble-sign"></i> 290 000 ₽/год</li>
+                    </ul>
+                    <p>Программа готовит специалистов в области математического моделирования, разработки алгоритмов и анализа данных. Выпускники работают в IT-компаниях и научных центрах.</p>
+                    <a href="#" class="program-link">Подробнее о программе <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <div class="program-card" data-category="bachelor">
+                    <span class="program-level">Бакалавриат</span>
+                    <h3>Экономика и финансы</h3>
+                    <ul class="program-features">
+                        <li><i class="fas fa-clock"></i> 4 года</li>
+                        <li><i class="fas fa-language"></i> Русский</li>
+                        <li><i class="fas fa-users"></i> 25 бюджетных мест</li>
+                        <li><i class="fas fa-ruble-sign"></i> 260 000 ₽/год</li>
+                    </ul>
+                    <p>Углубленная подготовка в области финансового анализа, инвестиций и корпоративных финансов. Сотрудничество с ведущими банками и финансовыми компаниями.</p>
+                    <a href="#" class="program-link">Подробнее о программе <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <div class="program-card" data-category="bachelor">
+                    <span class="program-level">Бакалавриат</span>
+                    <h3>Программная инженерия</h3>
+                    <ul class="program-features">
+                        <li><i class="fas fa-clock"></i> 4 года</li>
+                        <li><i class="fas fa-language"></i> Русский / Английский</li>
+                        <li><i class="fas fa-users"></i> 40 бюджетных мест</li>
+                        <li><i class="fas fa-ruble-sign"></i> 290 000 ₽/год</li>
+                    </ul>
+                    <p>Разработка программных продуктов, управление IT-проектами, современные технологии разработки. Практика в IT-компаниях с первого курса.</p>
+                    <a href="#" class="program-link">Подробнее о программе <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <div class="program-card" data-category="bachelor">
+                    <span class="program-level">Бакалавриат</span>
+                    <h3>Международные отношения</h3>
+                    <ul class="program-features">
+                        <li><i class="fas fa-clock"></i> 4 года</li>
+                        <li><i class="fas fa-language"></i> Английский / Китайский</li>
+                        <li><i class="fas fa-users"></i> 15 бюджетных мест</li>
+                        <li><i class="fas fa-ruble-sign"></i> 310 000 ₽/год</li>
+                    </ul>
+                    <p>Подготовка специалистов в области дипломатии, международного права и внешнеэкономической деятельности. Стажировки в зарубежных университетах.</p>
+                    <a href="#" class="program-link">Подробнее о программе <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <div class="program-card" data-category="bachelor">
+                    <span class="program-level">Бакалавриат</span>
+                    <h3>Биотехнология</h3>
+                    <ul class="program-features">
+                        <li><i class="fas fa-clock"></i> 4 года</li>
+                        <li><i class="fas fa-language"></i> Русский</li>
+                        <li><i class="fas fa-users"></i> 20 бюджетных мест</li>
+                        <li><i class="fas fa-ruble-sign"></i> 275 000 ₽/год</li>
+                    </ul>
+                    <p>Изучение современных методов биотехнологии, генной инженерии и биоинформатики. Работа в современных лабораториях.</p>
+                    <a href="#" class="program-link">Подробнее о программе <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <div class="program-card" data-category="bachelor">
+                    <span class="program-level">Бакалавриат</span>
+                    <h3>Дизайн</h3>
+                    <ul class="program-features">
+                        <li><i class="fas fa-clock"></i> 4 года</li>
+                        <li><i class="fas fa-language"></i> Русский</li>
+                        <li><i class="fas fa-users"></i> 12 бюджетных мест</li>
+                        <li><i class="fas fa-ruble-sign"></i> 320 000 ₽/год</li>
+                    </ul>
+                    <p>Промышленный дизайн, UI/UX, графический дизайн. Современные мастерские и работа с реальными заказчиками.</p>
+                    <a href="#" class="program-link">Подробнее о программе <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Магистратура -->
+        <section id="master" class="programs-section" data-category="master">
+            <h2>Магистратура</h2>
+            <div class="programs-grid">
+                <div class="program-card" data-category="master">
+                    <span class="program-level">Магистратура</span>
+                    <h3>Искусственный интеллект</h3>
+                    <ul class="program-features">
+                        <li><i class="fas fa-clock"></i> 2 года</li>
+                        <li><i class="fas fa-language"></i> Английский</li>
+                        <li><i class="fas fa-users"></i> 20 бюджетных мест</li>
+                        <li><i class="fas fa-ruble-sign"></i> 340 000 ₽/год</li>
+                    </ul>
+                    <p>Программа для тех, кто хочет стать лидером в области машинного обучения и AI. Совместно с индустриальными партнерами и исследовательскими центрами.</p>
+                    <a href="#" class="program-link">Подробнее о программе <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <div class="program-card" data-category="master">
+                    <span class="program-level">Магистратура</span>
+                    <h3>Международный бизнес</h3>
+                    <ul class="program-features">
+                        <li><i class="fas fa-clock"></i> 2 года</li>
+                        <li><i class="fas fa-language"></i> Английский</li>
+                        <li><i class="fas fa-users"></i> 15 бюджетных мест</li>
+                        <li><i class="fas fa-ruble-sign"></i> 350 000 ₽/год</li>
+                    </ul>
+                    <p>Совместная программа с зарубежными университетами, двойные дипломы и международные стажировки. Изучение глобальных рынков.</p>
+                    <a href="#" class="program-link">Подробнее о программе <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <div class="program-card" data-category="master">
+                    <span class="program-level">Магистратура</span>
+                    <h3>Биоинформатика</h3>
+                    <ul class="program-features">
+                        <li><i class="fas fa-clock"></i> 2 года</li>
+                        <li><i class="fas fa-language"></i> Русский / Английский</li>
+                        <li><i class="fas fa-users"></i> 12 бюджетных мест</li>
+                        <li><i class="fas fa-ruble-sign"></i> 320 000 ₽/год</li>
+                    </ul>
+                    <p>На стыке биологии и IT: анализ геномных данных, структурная биология, разработка биоинформатических инструментов.</p>
+                    <a href="#" class="program-link">Подробнее о программе <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <div class="program-card" data-category="master">
+                    <span class="program-level">Магистратура</span>
+                    <h3>Финансовый инжиниринг</h3>
+                    <ul class="program-features">
+                        <li><i class="fas fa-clock"></i> 2 года</li>
+                        <li><i class="fas fa-language"></i> Русский</li>
+                        <li><i class="fas fa-users"></i> 10 бюджетных мест</li>
+                        <li><i class="fas fa-ruble-sign"></i> 300 000 ₽/год</li>
+                    </ul>
+                    <p>Создание и управление сложными финансовыми продуктами, количественные финансы, риск-менеджмент.</p>
+                    <a href="#" class="program-link">Подробнее о программе <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Аспирантура -->
+        <section id="phd" class="programs-section" data-category="phd">
+            <h2>Аспирантура</h2>
+            <div class="programs-grid">
+                <div class="program-card" data-category="phd">
+                    <span class="program-level">Аспирантура</span>
+                    <h3>Математическое моделирование</h3>
+                    <ul class="program-features">
+                        <li><i class="fas fa-clock"></i> 3 года</li>
+                        <li><i class="fas fa-language"></i> Русский</li>
+                        <li><i class="fas fa-users"></i> 5 бюджетных мест</li>
+                        <li><i class="fas fa-ruble-sign"></i> 280 000 ₽/год</li>
+                    </ul>
+                    <p>Подготовка кандидатов наук в области вычислительной математики, математического моделирования и численных методов.</p>
+                    <a href="#" class="program-link">Подробнее о программе <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <div class="program-card" data-category="phd">
+                    <span class="program-level">Аспирантура</span>
+                    <h3>Экономика и управление</h3>
+                    <ul class="program-features">
+                        <li><i class="fas fa-clock"></i> 3 года</li>
+                        <li><i class="fas fa-language"></i> Русский</li>
+                        <li><i class="fas fa-users"></i> 4 бюджетных места</li>
+                        <li><i class="fas fa-ruble-sign"></i> 260 000 ₽/год</li>
+                    </ul>
+                    <p>Исследования в области экономической теории, финансов и управления инновациями. Научное руководство от ведущих профессоров.</p>
+                    <a href="#" class="program-link">Подробнее о программе <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <div class="program-card" data-category="phd">
+                    <span class="program-level">Аспирантура</span>
+                    <h3>Физика конденсированного состояния</h3>
+                    <ul class="program-features">
+                        <li><i class="fas fa-clock"></i> 3 года</li>
+                        <li><i class="fas fa-language"></i> Русский / Английский</li>
+                        <li><i class="fas fa-users"></i> 3 бюджетных места</li>
+                        <li><i class="fas fa-ruble-sign"></i> 300 000 ₽/год</li>
+                    </ul>
+                    <p>Экспериментальные и теоретические исследования в области физики твердого тела, наноматериалов и квантовых технологий.</p>
+                    <a href="#" class="program-link">Подробнее о программе <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Дополнительное образование -->
+        <section id="additional" class="programs-section" data-category="additional">
+            <h2>Дополнительное образование</h2>
+            <div class="programs-grid">
+                <div class="program-card" data-category="additional">
+                    <span class="program-level">ДПО</span>
+                    <h3>Профессиональная переподготовка "Data Science"</h3>
+                    <ul class="program-features">
+                        <li><i class="fas fa-clock"></i> 9 месяцев</li>
+                        <li><i class="fas fa-language"></i> Русский</li>
+                        <li><i class="fas fa-users"></i> 50 мест</li>
+                        <li><i class="fas fa-ruble-sign"></i> 180 000 ₽</li>
+                    </ul>
+                    <p>Интенсивная программа для специалистов, желающих освоить анализ данных и машинное обучение с нуля.</p>
+                    <a href="#" class="program-link">Подробнее о программе <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <div class="program-card" data-category="additional">
+                    <span class="program-level">ДПО</span>
+                    <h3>Курсы повышения квалификации "Управление проектами"</h3>
+                    <ul class="program-features">
+                        <li><i class="fas fa-clock"></i> 4 месяца</li>
+                        <li><i class="fas fa-language"></i> Русский</li>
+                        <li><i class="fas fa-users"></i> 30 мест</li>
+                        <li><i class="fas fa-ruble-sign"></i> 90 000 ₽</li>
+                    </ul>
+                    <p>Современные методологии управления, подготовка к сертификации PMP, работа с реальными кейсами.</p>
+                    <a href="#" class="program-link">Подробнее о программе <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <div class="program-card" data-category="additional">
+                    <span class="program-level">ДПО</span>
+                    <h3>MBA - Мастер делового администрирования</h3>
+                    <ul class="program-features">
+                        <li><i class="fas fa-clock"></i> 2 года</li>
+                        <li><i class="fas fa-language"></i> Русский</li>
+                        <li><i class="fas fa-users"></i> 25 мест</li>
+                        <li><i class="fas fa-ruble-sign"></i> 650 000 ₽/год</li>
+                    </ul>
+                    <p>Программа для руководителей высшего звена. Стратегический менеджмент, лидерство, управление изменениями.</p>
+                    <a href="#" class="program-link">Подробнее о программе <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Кнопка "Показать все" (появляется когда активен фильтр) -->
+        <div class="show-all-container" id="showAllContainer" style="display: none;">
+            <button class="show-all-btn" id="showAllBtn">
+                <i class="fas fa-th-large"></i> Показать все программы
+            </button>
+        </div>
+
+        <!-- Статистика -->
+        <div class="stats-banner">
+            <div class="stat-item">
+                <h3>120+</h3>
+                <p>программ</p>
+            </div>
+            <div class="stat-item">
+                <h3>12</h3>
+                <p>факультетов</p>
+            </div>
+            <div class="stat-item">
+                <h3>500+</h3>
+                <p>преподавателей</p>
+            </div>
+            <div class="stat-item">
+                <h3>95%</h3>
+                <p>трудоустройство</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Призыв к действию -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Не нашли подходящую программу?</h2>
+            <p>Свяжитесь с нами, и мы поможем подобрать индивидуальную траекторию обучения</p>
+            <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                <a href="contacts.html" class="btn btn-primary">Связаться с нами</a>
+                <a href="professions.html" class="btn btn-outline" style="background: white;">Все профессии <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Футер -->
+     <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <a href="#" class="footer-logo">Университет</a>
+                    <p style="color:#b0b0c5; margin: 20px 0;">Современное образование для нового поколения лидеров и профессионалов.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-vk"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4 style="color:white; margin-bottom:20px;">Навигация</h4>
+                    <ul class="footer-links">
+                       <li><a href="index.html" class="active">Главная</a></li>
+                <li><a href="about.html">О нас</a></li>
+                <li><a href="programs.html">Программы</a></li>
+                <li><a href="admission.html">Поступление</a></li>
+                <li><a href="contacts.html">Контакты</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="color:white; margin-bottom:20px;">Абитуриентам</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Приемная комиссия</a></li>
+                        <li><a href="#">Дни открытых дверей</a></li>
+                        <li><a href="#">Бакалавриат</a></li>
+                        <li><a href="#">Магистратура</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="color:white; margin-bottom:20px;">Контакты</h4>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt" style="margin-right:10px;"></i> г. Москва, ул. Пушкина, дом Колотушкина</li>
+                        <li><i class="fas fa-phone" style="margin-right:10px;"></i> +7 (800) 535-35-35</li>
+                        <li><i class="fas fa-envelope" style="margin-right:10px;"></i> info@university.ru</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript для навигации по разделам -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Получаем все элементы
+            const navButtons = document.querySelectorAll('.section-nav-btn');
+            const programSections = document.querySelectorAll('.programs-section');
+            const allProgramCards = document.querySelectorAll('.program-card');
+            const showAllContainer = document.getElementById('showAllContainer');
+            const showAllBtn = document.getElementById('showAllBtn');
+            
+            // Функция для показа всех программ
+            function showAllPrograms() {
+                allProgramCards.forEach(card => {
+                    card.classList.remove('hidden');
+                });
+                
+                programSections.forEach(section => {
+                    section.style.display = 'block';
+                });
+                
+                navButtons.forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                
+                document.querySelector('[data-section="all"]').classList.add('active');
+                showAllContainer.style.display = 'none';
+                
+                // Плавная прокрутка к верхней части программ
+                window.scrollTo({
+                    top: document.querySelector('.section-nav').offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            }
+            
+            // Функция для фильтрации по категории
+            function filterPrograms(category) {
+                if (category === 'all') {
+                    showAllPrograms();
+                    return;
+                }
+                
+                // Скрываем/показываем секции
+                programSections.forEach(section => {
+                    const sectionCategory = section.getAttribute('data-category');
+                    if (sectionCategory === category) {
+                        section.style.display = 'block';
+                    } else {
+                        section.style.display = 'none';
+                    }
+                });
+                
+                // Показываем кнопку "Показать все"
+                showAllContainer.style.display = 'block';
+                
+                // Плавная прокрутка
+                const targetSection = document.getElementById(category);
+                if (targetSection) {
+                    window.scrollTo({
+                        top: targetSection.offsetTop - 120,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+            
+            // Обработчики для кнопок навигации
+            navButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const category = this.getAttribute('data-section');
+                    
+                    // Обновляем активный класс
+                    navButtons.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Фильтруем программы
+                    filterPrograms(category);
+                });
+            });
+            
+            // Обработчик для кнопки "Показать все"
+            if (showAllBtn) {
+                showAllBtn.addEventListener('click', showAllPrograms);
+            }
+            
+            // Проверяем, есть ли якорь в URL при загрузке
+            const hash = window.location.hash.substring(1); // убираем #
+            if (hash) {
+                const validCategories = ['bachelor', 'master', 'phd', 'additional'];
+                if (validCategories.includes(hash)) {
+                    // Находим кнопку с этим data-section
+                    const targetBtn = document.querySelector(`[data-section="${hash}"]`);
+                    if (targetBtn) {
+                        targetBtn.click();
+                    }
+                }
+            }
+            
+            // Добавляем обработчики для ссылок в футере
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const validCategories = ['bachelor', 'master', 'phd', 'additional'];
+                    
+                    if (validCategories.includes(targetId)) {
+                        const targetBtn = document.querySelector(`[data-section="${targetId}"]`);
+                        if (targetBtn) {
+                            targetBtn.click();
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

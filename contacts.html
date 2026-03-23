@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Университет</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Дополнительные стили для страницы контактов */
+        .contacts-hero {
+            background: linear-gradient(135deg, #4a6cf7 0%, #6d8aff 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .contacts-hero h1 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 3.5rem;
+        }
+        
+        .contacts-hero p {
+            color: rgba(255,255,255,0.9);
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .contacts-quick-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-top: -50px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .contact-quick-card {
+            background: white;
+            padding: 30px 20px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        
+        .contact-quick-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(74,108,247,0.2);
+        }
+        
+        .contact-quick-card i {
+            font-size: 2.5rem;
+            color: #4a6cf7;
+            margin-bottom: 15px;
+        }
+        
+        .contact-quick-card h3 {
+            margin-bottom: 10px;
+            color: #1e1e2f;
+            font-size: 1.2rem;
+        }
+        
+        .contact-quick-card p {
+            color: #5e5e71;
+            margin: 5px 0;
+            font-size: 0.95rem;
+        }
+        
+        .contact-quick-card .highlight {
+            color: #4a6cf7;
+            font-weight: 600;
+        }
+        
+        .main-contacts-section {
+            padding: 80px 0;
+            background: #f9faff;
+        }
+        
+        .contacts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+        
+        .contact-info-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 2px solid #f0f0f5;
+        }
+        
+        .contact-info-card h2 {
+            margin-bottom: 30px;
+            color: #1e1e2f;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .contact-info-card h2:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: #4a6cf7;
+            border-radius: 2px;
+        }
+        
+        .contact-details-list {
+            margin-bottom: 40px;
+        }
+        
+        .contact-detail-item {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+            align-items: flex-start;
+        }
+        
+        .contact-detail-icon {
+            width: 50px;
+            height: 50px;
+            background: #e8ebfe;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #4a6cf7;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+        
+        .contact-detail-text h3 {
+            margin-bottom: 5px;
+            color: #1e1e2f;
+            font-size: 1.1rem;
+        }
+        
+        .contact-detail-text p {
+            color: #5e5e71;
+            margin: 5px 0;
+        }
+        
+        .contact-detail-text a {
+            color: #4a6cf7;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .contact-detail-text a:hover {
+            color: #3a5be0;
+            text-decoration: underline;
+        }
+        
+        .social-links-large {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .social-link-large {
+            width: 50px;
+            height: 50px;
+            background: #e8ebfe;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #4a6cf7;
+            font-size: 1.5rem;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        
+        .social-link-large:hover {
+            background: #4a6cf7;
+            color: white;
+            transform: translateY(-5px);
+        }
+        
+        .map-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 2px solid #f0f0f5;
+        }
+        
+        .map-card h2 {
+            margin-bottom: 30px;
+            color: #1e1e2f;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .map-card h2:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: #4a6cf7;
+            border-radius: 2px;
+        }
+        
+        .map-container {
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            height: 300px;
+            background: #f0f0f5;
+        }
+        
+        .map-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+        
+        .map-container:hover img {
+            transform: scale(1.02);
+        }
+        
+        .route-info {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+            padding: 20px;
+            background: #f9faff;
+            border-radius: 15px;
+        }
+        
+        .route-info i {
+            font-size: 2rem;
+            color: #4a6cf7;
+        }
+        
+        .route-text p {
+            color: #5e5e71;
+            margin: 5px 0;
+        }
+        
+        .route-text strong {
+            color: #1e1e2f;
+        }
+        
+        .departments-section {
+            padding: 60px 0;
+            background: white;
+        }
+        
+        .departments-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .department-card {
+            background: #f9faff;
+            border-radius: 20px;
+            padding: 30px;
+            transition: transform 0.3s;
+            border: 2px solid transparent;
+        }
+        
+        .department-card:hover {
+            transform: translateY(-5px);
+            border-color: #4a6cf7;
+        }
+        
+        .department-card h3 {
+            margin-bottom: 20px;
+            color: #1e1e2f;
+            font-size: 1.2rem;
+        }
+        
+        .department-card p {
+            color: #5e5e71;
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .department-card i {
+            color: #4a6cf7;
+            width: 20px;
+        }
+        
+        .feedback-section {
+            padding: 80px 0;
+            background: #f9faff;
+        }
+        
+        .feedback-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 30px;
+            padding: 50px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+            border: 2px solid #f0f0f5;
+        }
+        
+        .feedback-container h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #1e1e2f;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #1e1e2f;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e7;
+            border-radius: 12px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #4a6cf7;
+            box-shadow: 0 0 0 3px rgba(74,108,247,0.1);
+        }
+        
+        .form-group textarea {
+            height: 150px;
+            resize: vertical;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .checkbox-group input {
+            width: auto;
+        }
+        
+        .checkbox-group label {
+            margin: 0;
+            color: #5e5e71;
+        }
+        
+        .submit-btn {
+            background: #4a6cf7;
+            color: white;
+            border: none;
+            padding: 16px 40px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+        }
+        
+        .submit-btn:hover {
+            background: #3a5be0;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(74,108,247,0.2);
+        }
+        
+        .faq-mini-section {
+            padding: 60px 0;
+            background: white;
+        }
+        
+        .faq-mini-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .faq-mini-item {
+            background: #f9faff;
+            border-radius: 20px;
+            padding: 30px;
+            transition: transform 0.3s;
+        }
+        
+        .faq-mini-item:hover {
+            transform: translateX(10px);
+        }
+        
+        .faq-mini-item h4 {
+            margin-bottom: 10px;
+            color: #1e1e2f;
+            font-size: 1.2rem;
+        }
+        
+        .faq-mini-item p {
+            color: #5e5e71;
+            margin: 0;
+        }
+        
+        /* Стили для уведомления (toast) */
+        .toast-notification {
+            position: fixed;
+            top: 100px;
+            right: 30px;
+            background: white;
+            color: #1e1e2f;
+            padding: 16px 24px;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 1000;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            border-left: 4px solid #4a6cf7;
+            max-width: 350px;
+        }
+        
+        .toast-notification.show {
+            transform: translateX(0);
+        }
+        
+        .toast-icon {
+            width: 30px;
+            height: 30px;
+            background: #4a6cf7;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1rem;
+        }
+        
+        .toast-content {
+            flex: 1;
+        }
+        
+        .toast-title {
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: #1e1e2f;
+        }
+        
+        .toast-message {
+            color: #5e5e71;
+            font-size: 0.9rem;
+        }
+        
+        .toast-close {
+            color: #b0b0b5;
+            cursor: pointer;
+            transition: color 0.3s;
+            font-size: 1.2rem;
+        }
+        
+        .toast-close:hover {
+            color: #4a6cf7;
+        }
+        
+        @media (max-width: 1024px) {
+            .contacts-quick-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .contacts-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .departments-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .faq-mini-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .contacts-quick-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .departments-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-detail-item {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            
+            .route-info {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .feedback-container {
+                padding: 30px 20px;
+            }
+            
+            .contacts-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .toast-notification {
+                top: 20px;
+                right: 20px;
+                left: 20px;
+                max-width: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Навигация -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">Университет</a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="about.html">О нас</a></li>
+                <li><a href="programs.html">Программы</a></li>
+                <li><a href="admission.html">Поступление</a></li>
+                <li><a href="contacts.html" class="active">Контакты</a></li>
+            </ul>
+            <a href="apply.html" class="btn btn-primary">Подать заявку</a>
+        </div>
+    </nav>
+
+    <!-- Hero секция -->
+    <section class="contacts-hero">
+        <div class="container">
+            <h1>Контакты</h1>
+            <p>Мы всегда готовы ответить на ваши вопросы и помочь с выбором образовательной программы</p>
+        </div>
+    </section>
+
+    <!-- Быстрые контакты -->
+    <div class="container">
+        <div class="contacts-quick-grid">
+            <a href="tel:+78005353555" class="contact-quick-card">
+                <i class="fas fa-phone-alt"></i>
+                <h3>Позвонить</h3>
+                <p class="highlight">+7 (800) 535-35-55</p>
+                <p>Ежедневно с 9:00 до 20:00</p>
+            </a>
+            
+            <a href="mailto:info@university.ru" class="contact-quick-card">
+                <i class="fas fa-envelope"></i>
+                <h3>Написать</h3>
+                <p class="highlight">info@university.ru</p>
+                <p>Ответ в течение 2 часов</p>
+            </a>
+            
+            <a href="https://t.me/university_bot" target="_blank" class="contact-quick-card">
+                <i class="fab fa-telegram"></i>
+                <h3>Telegram</h3>
+                <p class="highlight">@university_bot</p>
+                <p>Бот для быстрых вопросов</p>
+            </a>
+            
+            <a href="#" class="contact-quick-card">
+                <i class="fas fa-map-marker-alt"></i>
+                <h3>Приехать</h3>
+                <p class="highlight">ул. Образования, 1</p>
+                <p>м. Университет, 5 мин пешком</p>
+            </a>
+        </div>
+    </div>
+
+    <!-- Основная контактная информация и карта -->
+    <section class="main-contacts-section">
+        <div class="container">
+            <div class="contacts-grid">
+                <!-- Левая колонка - контактная информация -->
+                <div class="contact-info-card">
+                    <h2>Наши контакты</h2>
+                    
+                    <div class="contact-details-list">
+                        <div class="contact-detail-item">
+                            <div class="contact-detail-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="contact-detail-text">
+                                <h3>Главный кампус</h3>
+                                <p>г. Москва, ул. Образования, 1</p>
+                                <p>Главный корпус, 1 этаж, офис 101</p>
+                                <p><i class="fas fa-subway"></i> м. Университет (выход №3), 5 минут пешком</p>
+                                <a href="#" target="_blank"><i class="fas fa-external-link-alt"></i> Построить маршрут</a>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-detail-item">
+                            <div class="contact-detail-icon">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div class="contact-detail-text">
+                                <h3>Телефоны</h3>
+                                <p><strong>Приемная комиссия:</strong> <a href="tel:+78005353555">+7 (800) 535-35-55</a></p>
+                                <p><strong>Отдел по работе с абитуриентами:</strong> <a href="tel:+74951234568">+7 (495) 123-45-68</a></p>
+                                <p><strong>Международный отдел:</strong> <a href="tel:+74951234569">+7 (495) 123-45-69</a></p>
+                                <p><strong>Факс:</strong> +7 (495) 123-45-70</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-detail-item">
+                            <div class="contact-detail-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-detail-text">
+                                <h3>Электронная почта</h3>
+                                <p><strong>Общие вопросы:</strong> <a href="mailto:info@university.ru">info@university.ru</a></p>
+                                <p><strong>Поступление:</strong> <a href="mailto:admission@university.ru">admission@university.ru</a></p>
+                                <p><strong>Для иностранцев:</strong> <a href="mailto:international@university.ru">international@university.ru</a></p>
+                                <p><strong>Сотрудничество:</strong> <a href="mailto:partners@university.ru">partners@university.ru</a></p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-detail-item">
+                            <div class="contact-detail-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="contact-detail-text">
+                                <h3>Часы работы</h3>
+                                <p><strong>Понедельник - Пятница:</strong> 9:00 - 20:00</p>
+                                <p><strong>Суббота:</strong> 10:00 - 18:00</p>
+                                <p><strong>Воскресенье:</strong> Выходной</p>
+                                <p><strong>В период приемной кампании:</strong> 9:00 - 21:00 (без выходных)</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h3 style="margin-bottom: 15px;">Мы в социальных сетях</h3>
+                    <div class="social-links-large">
+                        <a href="#" class="social-link-large"><i class="fab fa-vk"></i></a>
+                        <a href="#" class="social-link-large"><i class="fab fa-telegram"></i></a>
+                        <a href="#" class="social-link-large"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="social-link-large"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link-large"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Правая колонка - карта -->
+                <div class="map-card">
+                    <h2>Как нас найти</h2>
+                    
+                    <div class="map-container">
+                        <img src="karta.png" alt="Карта проезда">
+                    </div>
+                    
+                    <div class="route-info">
+                        <i class="fas fa-bus"></i>
+                        <div class="route-text">
+                            <p><strong>Общественный транспорт:</strong></p>
+                            <p> Метро: ст. "Университет", выход №3, далее 5 минут пешком</p>
+                            <p>Автобусы: № 1, 2, 3, 5, 10 до остановки "Университет"</p>
+                            <p>Трамвай: № 4, 7 до остановки "Студенческая"</p>
+                        </div>
+                    </div>
+                    
+                    <div class="route-info" style="margin-top: 15px;">
+                        <i class="fas fa-car"></i>
+                        <div class="route-text">
+                            <p><strong>На автомобиле:</strong></p>
+                            <p> Координаты для навигатора: 55.751244, 37.618423</p>
+                            <p>Бесплатная парковка для посетителей на 100 мест (въезд со стороны ул. Научная)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Отделы и подразделения -->
+    <section class="departments-section">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 20px;">Отделы и подразделения</h2>
+            <p style="text-align: center; color: #5e5e71; max-width: 700px; margin: 0 auto 40px;">Вы можете обратиться напрямую в нужный отдел для быстрого решения вашего вопроса</p>
+            
+            <div class="departments-grid">
+                <div class="department-card">
+                    <h3>📚 Приемная комиссия</h3>
+                    <p><i class="fas fa-phone"></i> +7 (800) 535-35-55</p>
+                    <p><i class="fas fa-envelope"></i> admission@university.ru</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Кабинет 101</p>
+                    <p><i class="fas fa-clock"></i> Пн-Пт 9:00-20:00, Сб 10:00-18:00</p>
+                </div>
+                
+                <div class="department-card">
+                    <h3>🎓 Учебный отдел</h3>
+                    <p><i class="fas fa-phone"></i> +7 (495) 123-45-71</p>
+                    <p><i class="fas fa-envelope"></i> edu@university.ru</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Кабинет 205</p>
+                    <p><i class="fas fa-clock"></i> Пн-Пт 10:00-18:00</p>
+                </div>
+                
+                <div class="department-card">
+                    <h3>🏠 Отдел по работе со студентами</h3>
+                    <p><i class="fas fa-phone"></i> +7 (495) 123-45-72</p>
+                    <p><i class="fas fa-envelope"></i> students@university.ru</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Кабинет 310</p>
+                    <p><i class="fas fa-clock"></i> Пн-Пт 10:00-19:00</p>
+                </div>
+                
+                <div class="department-card">
+                    <h3>🌍 Международный отдел</h3>
+                    <p><i class="fas fa-phone"></i> +7 (495) 123-45-69</p>
+                    <p><i class="fas fa-envelope"></i> international@university.ru</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Кабинет 415</p>
+                    <p><i class="fas fa-clock"></i> Пн-Пт 10:00-18:00</p>
+                </div>
+                
+                <div class="department-card">
+                    <h3>💼 Центр карьеры</h3>
+                    <p><i class="fas fa-phone"></i> +7 (495) 123-45-73</p>
+                    <p><i class="fas fa-envelope"></i> career@university.ru</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Кабинет 120</p>
+                    <p><i class="fas fa-clock"></i> Пн-Пт 11:00-19:00</p>
+                </div>
+                
+                <div class="department-card">
+                    <h3>🔬 Научный отдел</h3>
+                    <p><i class="fas fa-phone"></i> +7 (495) 123-45-74</p>
+                    <p><i class="fas fa-envelope"></i> science@university.ru</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Кабинет 501</p>
+                    <p><i class="fas fa-clock"></i> Пн-Пт 9:00-18:00</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Форма обратной связи -->
+    <section class="feedback-section">
+        <div class="container">
+            <div class="feedback-container">
+                <h2>Напишите нам</h2>
+                <p style="text-align: center; color: #5e5e71; margin-bottom: 30px;">Заполните форму, и мы свяжемся с вами в ближайшее время</p>
+                
+                <form id="contactForm" action="#" method="post">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Ваше имя *</label>
+                            <input type="text" id="name" name="name" placeholder="Иван Иванов" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" name="email" placeholder="ivan@example.com" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="phone">Телефон</label>
+                            <input type="tel" id="phone" name="phone" placeholder="+7 (800) 535-35-55" value="+78005353555">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subject">Тема обращения *</label>
+                            <select id="subject" name="subject" required>
+                                <option value="">Выберите тему</option>
+                                <option value="admission">Вопросы по поступлению</option>
+                                <option value="programs">Выбор программы обучения</option>
+                                <option value="documents">Документы и справки</option>
+                                <option value="partnership">Сотрудничество</option>
+                                <option value="other">Другое</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Сообщение *</label>
+                        <textarea id="message" name="message" placeholder="Напишите ваш вопрос..." required></textarea>
+                    </div>
+                    
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="consent" name="consent" required>
+                        <label for="consent">Я согласен на обработку персональных данных и принимаю условия политики конфиденциальности *</label>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn" id="submitBtn">
+                        <i class="fas fa-paper-plane"></i> Отправить сообщение
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Часто задаваемые вопросы по контактам -->
+    <section class="faq-mini-section">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 20px;">Часто задаваемые вопросы</h2>
+            
+            <div class="faq-mini-grid">
+                <div class="faq-mini-item">
+                    <h4>Как записаться на консультацию?</h4>
+                    <p>Вы можете позвонить в приемную комиссию по телефону +7 (800) 535-35-55 или заполнить форму на сайте. Мы подберем удобное для вас время.</p>
+                </div>
+                
+                <div class="faq-mini-item">
+                    <h4>Работает ли приемная комиссия в выходные?</h4>
+                    <p>В период приемной кампании комиссия работает ежедневно с 9:00 до 21:00 без выходных.</p>
+                </div>
+                
+                <div class="faq-mini-item">
+                    <h4>Можно ли получить консультацию онлайн?</h4>
+                    <p>Да, мы проводим онлайн-консультации в Zoom, Skype и Telegram. Запишитесь через форму на сайте.</p>
+                </div>
+                
+                <div class="faq-mini-item">
+                    <h4>Есть ли парковка для посетителей?</h4>
+                    <p>Да, на территории кампуса есть бесплатная парковка для посетителей на 100 мест.</p>
+                </div>
+                
+                <div class="faq-mini-item">
+                    <h4>Как получить справку об обучении?</h4>
+                    <p>Обратитесь в учебный отдел (кабинет 205) с паспортом или закажите справку через личный кабинет студента.</p>
+                </div>
+                
+                <div class="faq-mini-item">
+                    <h4>Работает ли университет в праздничные дни?</h4>
+                    <p>График работы в праздничные дни публикуется на сайте заранее. Обычно это сокращенный день или выходной.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Навигация по сайту (футер) -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <a href="#" class="footer-logo">Университет</a>
+                    <p style="color:#b0b0c5; margin: 20px 0;">Современное образование для нового поколения лидеров и профессионалов.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-vk"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4 style="color:white; margin-bottom:20px;">Навигация</h4>
+                    <ul class="footer-links">
+                       <li><a href="index.html" class="active">Главная</a></li>
+                <li><a href="about.html">О нас</a></li>
+                <li><a href="programs.html">Программы</a></li>
+                <li><a href="admission.html">Поступление</a></li>
+                <li><a href="contacts.html">Контакты</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="color:white; margin-bottom:20px;">Абитуриентам</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Приемная комиссия</a></li>
+                        <li><a href="#">Дни открытых дверей</a></li>
+                        <li><a href="#">Бакалавриат</a></li>
+                        <li><a href="#">Магистратура</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="color:white; margin-bottom:20px;">Контакты</h4>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt" style="margin-right:10px;"></i> г. Москва, ул. Пушкина, дом Колотушкина</li>
+                        <li><i class="fas fa-phone" style="margin-right:10px;"></i> +7 (800) 535-35-35</li>
+                        <li><i class="fas fa-envelope" style="margin-right:10px;"></i> info@university.ru</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p></p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

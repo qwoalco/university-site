@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Университет</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Дополнительные стили для страницы поступления */
+        .admission-hero {
+            background: linear-gradient(135deg, #4a6cf7 0%, #6d8aff 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .admission-hero h1 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 3.5rem;
+        }
+        
+        .admission-hero p {
+            color: rgba(255,255,255,0.9);
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .quick-info {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-top: -50px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .quick-info-card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .quick-info-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .quick-info-card i {
+            font-size: 2.5rem;
+            color: #4a6cf7;
+            margin-bottom: 15px;
+        }
+        
+        .quick-info-card h3 {
+            margin-bottom: 10px;
+            color: #1e1e2f;
+        }
+        
+        .quick-info-card p {
+            color: #5e5e71;
+            margin: 5px 0;
+        }
+        
+        .quick-info-card .highlight {
+            color: #4a6cf7;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #1e1e2f;
+        }
+        
+        .section-title p {
+            color: #5e5e71;
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .steps-container {
+            margin: 60px 0;
+            position: relative;
+        }
+        
+        .steps-container::before {
+            content: '';
+            position: absolute;
+            top: 50px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #4a6cf7, #6d8aff);
+            border-radius: 2px;
+            z-index: 1;
+        }
+        
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .step-item {
+            background: white;
+            padding: 30px 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            position: relative;
+        }
+        
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: #4a6cf7;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 auto 20px;
+            position: relative;
+            z-index: 3;
+        }
+        
+        .step-item h3 {
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .step-item p {
+            color: #5e5e71;
+            font-size: 0.95rem;
+            margin: 0;
+        }
+        
+        .dates-table {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            margin: 40px 0;
+        }
+        
+        .dates-header {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            background: #4a6cf7;
+            color: white;
+            padding: 20px;
+            font-weight: 600;
+        }
+        
+        .dates-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            padding: 20px;
+            border-bottom: 2px solid #f0f0f5;
+            transition: background 0.3s;
+        }
+        
+        .dates-row:hover {
+            background: #f9faff;
+        }
+        
+        .dates-row:last-child {
+            border-bottom: none;
+        }
+        
+        .dates-row .event {
+            font-weight: 600;
+            color: #1e1e2f;
+        }
+        
+        .dates-row .date {
+            color: #4a6cf7;
+            font-weight: 500;
+        }
+        
+        .dates-row .status {
+            color: #5e5e71;
+        }
+        
+        .dates-row .status.active {
+            color: #22c55e;
+            font-weight: 600;
+        }
+        
+        .dates-row .status.ended {
+            color: #ef4444;
+        }
+        
+        .docs-section {
+            background: #f9faff;
+            border-radius: 20px;
+            padding: 50px;
+            margin: 60px 0;
+        }
+        
+        .docs-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .doc-category {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.03);
+        }
+        
+        .doc-category h3 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 25px;
+            color: #1e1e2f;
+        }
+        
+        .doc-category h3 i {
+            color: #4a6cf7;
+            font-size: 1.5rem;
+        }
+        
+        .doc-list {
+            list-style: none;
+        }
+        
+        .doc-list li {
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #5e5e71;
+        }
+        
+        .doc-list li i {
+            color: #4a6cf7;
+            width: 20px;
+        }
+        
+        .exams-section {
+            margin: 60px 0;
+        }
+        
+        .exams-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+        
+        .exam-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 2px solid #f0f0f5;
+        }
+        
+        .exam-card h3 {
+            margin-bottom: 20px;
+            color: #1e1e2f;
+        }
+        
+        .exam-card ul {
+            list-style: none;
+        }
+        
+        .exam-card li {
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #5e5e71;
+        }
+        
+        .exam-card li i {
+            color: #4a6cf7;
+        }
+        
+        .min-score {
+            background: #e8ebfe;
+            padding: 4px 10px;
+            border-radius: 20px;
+            color: #4a6cf7;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+        
+        .commission-section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 60px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        
+        .commission-info {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin: 30px 0;
+        }
+        
+        .commission-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .commission-item i {
+            font-size: 2rem;
+            color: #4a6cf7;
+        }
+        
+        .commission-item p {
+            color: #5e5e71;
+            margin: 5px 0 0;
+        }
+        
+        .faq-section {
+            background: #f9faff;
+            border-radius: 20px;
+            padding: 50px;
+            margin: 60px 0;
+        }
+        
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .faq-item {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+        }
+        
+        .faq-item h4 {
+            margin-bottom: 10px;
+            color: #1e1e2f;
+            font-size: 1.1rem;
+        }
+        
+        .faq-item p {
+            color: #5e5e71;
+            margin: 0;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+        
+        .cta-buttons .btn {
+            min-width: 250px;
+        }
+        
+        @media (max-width: 1024px) {
+            .quick-info {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .steps-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .steps-container::before {
+                display: none;
+            }
+            
+            .docs-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .commission-info {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .admission-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .quick-info {
+                grid-template-columns: 1fr;
+            }
+            
+            .steps-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .dates-header, .dates-row {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            
+            .docs-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .exams-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .commission-info {
+                grid-template-columns: 1fr;
+            }
+            
+            .faq-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta-buttons .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Навигация -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">Университет</a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="about.html">О нас</a></li>
+                <li><a href="programs.html">Программы</a></li>
+                <li><a href="admission.html" class="active">Поступление</a></li>
+                <li><a href="contacts.html">Контакты</a></li>
+            </ul>
+            <a href="apply.html" class="btn btn-primary">Подать заявку</a>
+        </div>
+    </nav>
+
+    <!-- Hero секция -->
+    <section class="admission-hero">
+        <div class="container">
+            <h1>Поступление в Университет</h1>
+            <p>Всё, что нужно знать о поступлении: документы, сроки, экзамены и этапы зачисления</p>
+        </div>
+    </section>
+
+    <!-- Быстрая информация -->
+    <div class="container">
+        <div class="quick-info">
+            <div class="quick-info-card">
+                <i class="fas fa-calendar-alt"></i>
+                <h3>Начало приема</h3>
+                <p class="highlight">1 июня 2025</p>
+                <p>Прием документов стартует</p>
+            </div>
+            <div class="quick-info-card">
+                <i class="fas fa-hourglass-half"></i>
+                <h3>Окончание приема</h3>
+                <p class="highlight">25 июля 2025</p>
+                <p>Для бюджетных мест</p>
+            </div>
+            <div class="quick-info-card">
+                <i class="fas fa-graduation-cap"></i>
+                <h3>Бюджетные места</h3>
+                <p class="highlight">1 250</p>
+                <p>На всех направлениях</p>
+            </div>
+            <div class="quick-info-card">
+                <i class="fas fa-file-alt"></i>
+                <h3>Способы подачи</h3>
+                <p>Онлайн, почта, лично</p>
+                <p class="highlight">3 способа</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Этапы поступления -->
+    <section class="steps-container">
+        <div class="container">
+            <div class="section-title">
+                <h2>5 шагов к поступлению</h2>
+                <p>Простая и понятная процедура подачи документов</p>
+            </div>
+            
+            <div class="steps-grid">
+                <div class="step-item">
+                    <div class="step-number">1</div>
+                    <h3>Выбор программы</h3>
+                    <p>Изучите все направления и выберите до 5 программ для поступления</p>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">2</div>
+                    <h3>Подготовка документов</h3>
+                    <p>Соберите необходимые документы и сделайте их копии</p>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">3</div>
+                    <h3>Подача заявления</h3>
+                    <p>Заполните онлайн-форму или принесите документы лично</p>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">4</div>
+                    <h3>Вступительные испытания</h3>
+                    <p>Сдайте экзамены или предоставьте результаты ЕГЭ</p>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">5</div>
+                    <h3>Зачисление</h3>
+                    <p>Следите за списками и приносите оригиналы документов</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Важные даты -->
+    <section class="container">
+        <div class="section-title">
+            <h2>Важные даты приемной кампании 2025</h2>
+            <p>Ключевые сроки, которые нужно знать абитуриенту</p>
+        </div>
+        
+        <div class="dates-table">
+            <div class="dates-header">
+                <div>Событие</div>
+                <div>Дата</div>
+                <div>Статус</div>
+            </div>
+            <div class="dates-row">
+                <div class="event">Начало приема документов</div>
+                <div class="date">1 июня 2025</div>
+                <div class="status active">Скоро</div>
+            </div>
+            <div class="dates-row">
+                <div class="event">Окончание приема документов (бюджет)</div>
+                <div class="date">25 июля 2025</div>
+                <div class="status">Планируется</div>
+            </div>
+            <div class="dates-row">
+                <div class="event">Вступительные экзамены</div>
+                <div class="date">5-20 июля 2025</div>
+                <div class="status">Планируется</div>
+            </div>
+            <div class="dates-row">
+                <div class="event">Публикация конкурсных списков</div>
+                <div class="date">27 июля 2025</div>
+                <div class="status">Планируется</div>
+            </div>
+            <div class="dates-row">
+                <div class="event">Завершение приема оригиналов</div>
+                <div class="date">3 августа 2025</div>
+                <div class="status">Планируется</div>
+            </div>
+            <div class="dates-row">
+                <div class="event">Приказ о зачислении (1 волна)</div>
+                <div class="date">5 августа 2025</div>
+                <div class="status">Планируется</div>
+            </div>
+            <div class="dates-row">
+                <div class="event">Приказ о зачислении (2 волна)</div>
+                <div class="date">10 августа 2025</div>
+                <div class="status">Планируется</div>
+            </div>
+            <div class="dates-row">
+                <div class="event">Начало учебного года</div>
+                <div class="date">1 сентября 2025</div>
+                <div class="status">Планируется</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Необходимые документы -->
+    <section class="docs-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Необходимые документы</h2>
+                <p>Что нужно подготовить для поступления</p>
+            </div>
+            
+            <div class="docs-grid">
+                <div class="doc-category">
+                    <h3><i class="fas fa-id-card"></i> Основные документы</h3>
+                    <ul class="doc-list">
+                        <li><i class="fas fa-check"></i> Заявление о приеме</li>
+                        <li><i class="fas fa-check"></i> Паспорт (копия)</li>
+                        <li><i class="fas fa-check"></i> Аттестат/диплом (оригинал или копия)</li>
+                        <li><i class="fas fa-check"></i> Фотографии 3x4 (4 шт)</li>
+                        <li><i class="fas fa-check"></i> СНИЛС (копия)</li>
+                    </ul>
+                </div>
+                
+                <div class="doc-category">
+                    <h3><i class="fas fa-trophy"></i> Документы для льгот</h3>
+                    <ul class="doc-list">
+                        <li><i class="fas fa-check"></i> Документы, подтверждающие льготы</li>
+                        <li><i class="fas fa-check"></i> Удостоверение инвалида</li>
+                        <li><i class="fas fa-check"></i> Документы сироты</li>
+                        <li><i class="fas fa-check"></i> Договор о целевом обучении</li>
+                    </ul>
+                </div>
+                
+                <div class="doc-category">
+                    <h3><i class="fas fa-medal"></i> Индивидуальные достижения</h3>
+                    <ul class="doc-list">
+                        <li><i class="fas fa-check"></i> Дипломы олимпиад</li>
+                        <li><i class="fas fa-check"></i> Золотая медаль/диплом с отличием</li>
+                        <li><i class="fas fa-check"></i> ГТО (золотой знак)</li>
+                        <li><i class="fas fa-check"></i> Волонтерская книжка</li>
+                        <li><i class="fas fa-check"></i> Спортивные разряды</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 40px;">
+                <p style="color: #5e5e71;">* Все документы можно загрузить в личном кабинете или принести в приемную комиссию</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Вступительные испытания -->
+    <section class="container exams-section">
+        <div class="section-title">
+            <h2>Вступительные испытания</h2>
+            <p>Что нужно сдавать для поступления на разные направления</p>
+        </div>
+        
+        <div class="exams-grid">
+            <div class="exam-card">
+                <h3>IT и инженерные направления</h3>
+                <ul>
+                    <li><i class="fas fa-calculator"></i> Математика <span class="min-score">мин. 60 баллов</span></li>
+                    <li><i class="fas fa-laptop"></i> Информатика <span class="min-score">мин. 60 баллов</span></li>
+                    <li><i class="fas fa-language"></i> Русский язык <span class="min-score">мин. 55 баллов</span></li>
+                </ul>
+                <p style="margin-top: 20px; color: #4a6cf7;">* Призовые места олимпиад = 100 баллов</p>
+            </div>
+            
+            <div class="exam-card">
+                <h3>Экономика и управление</h3>
+                <ul>
+                    <li><i class="fas fa-calculator"></i> Математика <span class="min-score">мин. 55 баллов</span></li>
+                    <li><i class="fas fa-chart-line"></i> Обществознание <span class="min-score">мин. 55 баллов</span></li>
+                    <li><i class="fas fa-language"></i> Русский язык <span class="min-score">мин. 55 баллов</span></li>
+                </ul>
+            </div>
+            
+            <div class="exam-card">
+                <h3>Гуманитарные науки</h3>
+                <ul>
+                    <li><i class="fas fa-book"></i> История <span class="min-score">мин. 55 баллов</span></li>
+                    <li><i class="fas fa-gavel"></i> Обществознание <span class="min-score">мин. 55 баллов</span></li>
+                    <li><i class="fas fa-language"></i> Русский язык <span class="min-score">мин. 55 баллов</span></li>
+                </ul>
+            </div>
+            
+            <div class="exam-card">
+                <h3>Естественные науки</h3>
+                <ul>
+                    <li><i class="fas fa-calculator"></i> Математика <span class="min-score">мин. 55 баллов</span></li>
+                    <li><i class="fas fa-flask"></i> Биология/Химия <span class="min-score">мин. 55 баллов</span></li>
+                    <li><i class="fas fa-language"></i> Русский язык <span class="min-score">мин. 55 баллов</span></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Приемная комиссия -->
+    <section class="container commission-section">
+        <h2 style="text-align: center; margin-bottom: 30px;">Приемная комиссия</h2>
+        
+        <div class="commission-info">
+            <div class="commission-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <div>
+                    <strong>Адрес</strong>
+                    <p>г. Москва, ул. Образования, 1<br>Главный корпус, 1 этаж</p>
+                </div>
+            </div>
+            
+            <div class="commission-item">
+                <i class="fas fa-clock"></i>
+                <div>
+                    <strong>Часы работы</strong>
+                    <p>Пн-Пт: 9:00 - 20:00<br>Сб: 10:00 - 18:00</p>
+                </div>
+            </div>
+            
+            <div class="commission-item">
+                <i class="fas fa-phone"></i>
+                <div>
+                    <strong>Телефон</strong>
+                    <p>+7 (495) 123-45-67<br>+7 (495) 123-45-68</p>
+                </div>
+            </div>
+            
+            <div class="commission-item">
+                <i class="fas fa-envelope"></i>
+                <div>
+                    <strong>Email</strong>
+                    <p>admission@university.ru<br>info@university.ru</p>
+                </div>
+            </div>
+            
+            <div class="commission-item">
+                <i class="fas fa-telegram"></i>
+                <div>
+                    <strong>Telegram</strong>
+                    <p>@university_abiturient<br>@university_bot</p>
+                </div>
+            </div>
+            
+            <div class="commission-item">
+                <i class="fas fa-globe"></i>
+                <div>
+                    <strong>Сайт</strong>
+                    <p>university.ru/admission<br>lk.university.ru</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Часто задаваемые вопросы -->
+    <section class="container faq-section">
+        <h2 style="text-align: center; margin-bottom: 20px;">Часто задаваемые вопросы</h2>
+        
+        <div class="faq-grid">
+            <div class="faq-item">
+                <h4>Можно ли подать документы онлайн?</h4>
+                <p>Да, вы можете заполнить заявление в личном кабинете на нашем сайте, загрузить сканы документов и отслеживать статус заявки.</p>
+            </div>
+            
+            <div class="faq-item">
+                <h4>Сколько направлений можно выбрать?</h4>
+                <p>Вы можете подать заявления на 5 направлений одновременно. Рекомендуем ранжировать их по приоритету.</p>
+            </div>
+            
+            <div class="faq-item">
+                <h4>Нужно ли сдавать внутренние экзамены?</h4>
+                <p>Если у вас есть действующие результаты ЕГЭ, вы можете поступать по ним. В противном случае нужно сдать внутренние экзамены университета.</p>
+            </div>
+            
+            <div class="faq-item">
+                <h4>Есть ли общежитие для иногородних?</h4>
+                <p>Да, всем иногородним студентам предоставляется место в общежитии. Стоимость проживания от 3000 руб/мес.</p>
+            </div>
+            
+            <div class="faq-item">
+                <h4>Когда начинаются вступительные экзамены?</h4>
+                <p>Вступительные испытания проводятся с 5 по 20 июля. Расписание публикуется в личном кабинете за 2 недели.</p>
+            </div>
+            
+            <div class="faq-item">
+                <h4>Какие льготы есть при поступлении?</h4>
+                <p>Льготы предоставляются победителям олимпиад, инвалидам, сиротам и другим категориям. Подробнее в разделе "Льготы".</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Кнопки действий -->
+    <section class="container">
+        <div class="cta-buttons">
+            <a href="apply.html" class="btn btn-primary" style="padding: 16px 40px;">
+                <i class="fas fa-file-signature"></i> Подать заявку онлайн
+            </a>
+            <a href="professions.html" class="btn btn-outline" style="padding: 16px 40px;">
+                <i class="fas fa-search"></i> Выбрать профессию
+            </a>
+            <a href="contacts.html" class="btn btn-outline" style="padding: 16px 40px;">
+                <i class="fas fa-question-circle"></i> Задать вопрос
+            </a>
+        </div>
+    </section>
+
+    <!-- Футер -->
+     <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <a href="#" class="footer-logo">Университет</a>
+                    <p style="color:#b0b0c5; margin: 20px 0;">Современное образование для нового поколения лидеров и профессионалов.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-vk"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4 style="color:white; margin-bottom:20px;">Навигация</h4>
+                    <ul class="footer-links">
+                       <li><a href="index.html" class="active">Главная</a></li>
+                <li><a href="about.html">О нас</a></li>
+                <li><a href="programs.html">Программы</a></li>
+                <li><a href="admission.html">Поступление</a></li>
+                <li><a href="contacts.html">Контакты</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="color:white; margin-bottom:20px;">Абитуриентам</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Приемная комиссия</a></li>
+                        <li><a href="#">Дни открытых дверей</a></li>
+                        <li><a href="#">Бакалавриат</a></li>
+                        <li><a href="#">Магистратура</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="color:white; margin-bottom:20px;">Контакты</h4>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt" style="margin-right:10px;"></i> г. Москва, ул. Пушкина, дом Колотушкина</li>
+                        <li><i class="fas fa-phone" style="margin-right:10px;"></i> +7 (800) 535-35-35</li>
+                        <li><i class="fas fa-envelope" style="margin-right:10px;"></i> info@university.ru</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p></p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
